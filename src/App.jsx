@@ -6,8 +6,8 @@ import Testimonials from "./components/Testimonials"
 import Features from "./components/Features"
 import Header from "./components/Header"
 
-
-import reactLogo from './assets/react.svg'.
+// eslint-disable-next-line no-unused-vars
+import reactLogo from './assets/react.svg'
 
 
 
@@ -20,7 +20,7 @@ function App() {
   <Features />
   <Pricing />
   <Testimonials />
-  <Footer />  
+  <Footer />   
   </div>
 }
 export default App

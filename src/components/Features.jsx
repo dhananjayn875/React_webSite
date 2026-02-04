@@ -1,3 +1,4 @@
-export default function Navbar(){
-    return <div></div>
+export default function Features(){
+    return <div><button></button>
+    </div>
 }
