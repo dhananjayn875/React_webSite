@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Menu } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {
     const [mobileMenueIsOpen, setMobileMenueIsOpen] = useState(false)
@@ -19,15 +19,16 @@ export default function Navbar() {
                             <span className="text-blue-400">HUB</span>
                         </span>
                     </div>
+
                     {/*Navigation Links */}
-                    <div className="hidden md:flex item-center space-x-6 lg:space-x-8">
+                    <div className="hidden md:flex justify-start items-center space-x-6 lg:space-x-8">
                         <a href="#features" className="text-grey-300 hover:text-white text-sm lg:text-base">Features</a>
                         <a href="#Pricing" className="text-grey-300 hover:text-white text-sm lg:text-base">Pricing</a>
                         <a href="#Testimonials" className="text-grey-300 hover:text-white text-sm lg:text-base">Testimonials</a>
                         <a href="#Contact" className="text-grey-300 hover:text-white text-sm lg:text-base">Contact</a>
                     </div>
                     <button
-                        className="md:hidden p-2 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white sm:w-6 sm:h-6"
+                        className="md:hidden text-gray-300 hover:text-white focus:outline-none"
                         onClick={() => setMobileMenueIsOpen((prev) => !prev)}
                     >
                         {mobileMenueIsOpen ? (
@@ -37,7 +38,15 @@ export default function Navbar() {
 
                     </button>
 
-                    {mobileMenueIsOpen && <h className="md:hidden">HIII</h>}
+                    {mobileMenueIsOpen && (
+                        <div className="md:hidden absolute top-full left-0 w-full bg-slate-950/90 backdrop-blur-sm">
+                            {/* mobile nav links could go here */}
+                            <a href="#features" className="block px-4 py-2 text-gray-300 hover:text-white">Features</a>
+                            <a href="#Pricing" className="block px-4 py-2 text-gray-300 hover:text-white">Pricing</a>
+                            <a href="#Testimonials" className="block px-4 py-2 text-gray-300 hover:text-white">Testimonials</a>
+                            <a href="#Contact" className="block px-4 py-2 text-gray-300 hover:text-white">Contact</a>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav >
