@@ -27,6 +27,7 @@ export default function Navbar() {
                         <a href="#About" className="text-grey-300 hover:text-white text-sm lg:text-base">About</a>
                         <a href="#Projects" className="text-grey-300 hover:text-white text-sm lg:text-base">Projects</a>
                         <a href="#Resume" className="text-grey-300 hover:text-white text-sm lg:text-base">Resume</a>
+                        <a href="#Contact" className="text-grey-300 hover:text-white text-sm lg:text-base">Contact</a>
                     </div>
                     <button
                         className="md:hidden text-gray-300 hover:text-white focus:outline-none"
