@@ -1,12 +1,4 @@
 {
-  "name": "",
-  "version": "0.1.0",
-  ,
-  "private": true,
-  // ... other properties
-}
-
-{
   "name": "React Portfolio",
   "private": true,
   "version": "0.0.0",
