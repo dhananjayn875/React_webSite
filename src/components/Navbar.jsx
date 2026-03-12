@@ -1,323 +1,111 @@
 
-import { Menu, X } from 'lucide-react'
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
-    { label: "Work", href: "#work" },
-    { label: "About", href: "#about" },
-    { label: "Services", href: "#services" },
-    { label: "Contact", href: "#contact" },
+  { label: "Work", href: "#work" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#services" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
-    const [scrolled, setScrolled] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [activeLink, setActiveLink] = useState(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
 
-    useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 24);
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    return (
-        <>
-            <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap');
+  const handleSpanTransform = (index) => {
+    if (!menuOpen) return "";
+    if (index === 0) return "translate-y-1.5 rotate-45";
+    if (index === 1) return "opacity-0 scale-x-0";
+    if (index === 2) return "-translate-y-1.5 -rotate-45";
+  };
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  return (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 border-b border-red-500/10 ${scrolled
+        ? "bg-black/60 backdrop-blur-xl"
+        : "bg-transparent"
+        }`}
+    >
+      {/* Logo */}
+      <a href="#" className="flex items-center gap-2 select-none">
+        <div className="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse" />
+        <span className="text-2xl font-bold tracking-widest text-stone-100">VOLT</span>
+      </a>
 
-        :root {
-          --surface: #111111;
-          --border: rgba(192, 0, 0, 0.07);
-          --text: #f0ede8;
-          --muted: rgba(240,237,232,0.45);
-          --accent: #c8f542;
-          --accent-dim: rgba(200,245,66,0.12);
-          --font-display: 'Bebas Neue', sans-serif;
-          --font-body: 'DM Sans', sans-serif;
-          --radius: 2px;
-          --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-    
-        /* ── Navbar ── */
-        .navbar {
-          position: fixed;
-          top: 0; left: 0; right: 0;
-          z-index: 100;
-          padding: 0 32px;
-          height: 64px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          transition: background var(--transition), border-color var(--transition), backdrop-filter var(--transition);
-          border-bottom: 2px solid;
-        }
+      {/* Desktop Links */}
+      <ul className="hidden md:flex items-center gap-1 list-none">
+        {NAV_LINKS.map((link) => (
+          <li key={link.label}>
+            <a
+              href={link.href}
+              onClick={() => setActiveLink(link.label)}
+              className={`relative block px-3.5 py-1.5 text-xs font-medium tracking-widest uppercase transition-colors duration-300 ${activeLink === link.label
+                ? "text-stone-100 bg-lime-400/10"
+                : "text-stone-400 hover:text-stone-100 hover:bg-lime-400/10"
+                }`}
+            >
+              {link.label}
+              <span
+                className={`absolute bottom-0.5 left-3.5 right-3.5 h-px bg-lime-400 transition-transform duration-300 origin-left ${activeLink === link.label
+                  ? "scale-x-100"
+                  : "scale-x-0"
+                  }`}
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
 
-        .navbar--scrolled {
-          background: rgba(10, 10, 10, 0.88);
-          backdrop-filter: blur(20px) saturate(140%);
-          -webkit-backdrop-filter: blur(20px) saturate(140%);
-          border-bottom-color: var(--border);
-        }
+      {/* CTA Button and Hamburger */}
+      <div className="flex items-center gap-4">
+        <button className="hidden md:block bg-lime-400 text-black px-5 py-2 text-xs font-semibold tracking-wider uppercase rounded transition-all duration-300 hover:opacity-90 active:translate-y-0.5">
+          Get Started →
+        </button>
 
-        /* Logo */
-        .navbar__logo {
-          font-family: var(--font-display);
-          font-size: 26px;
-          letter-spacing: 0.08em;
-          color: var(--text);
-          text-decoration: none;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-          user-select: none;
-        }
+        {/* Hamburger */}
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Toggle menu"
+          className="md:hidden flex flex-col justify-center gap-1.5 w-9 h-9 bg-transparent border border-red-500/10 rounded p-2 cursor-pointer transition-colors duration-300 hover:border-lime-400"
+        >
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className={`block h-0.5 bg-stone-100 rounded-full transition-all duration-300 ${handleSpanTransform(i)
+                } ${i === 0 || i === 2 ? "w-full" : "w-full"}`}
+            />
+          ))}
+        </button>
+      </div>
 
-        .navbar__logo-dot {
-          width: 7px; height: 7px;
-          border-radius: 50%;
-          background: var(--accent);
-          display: inline-block;
-          animation: pulse 2.6s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.75); }
-        }
-
-        /* Desktop links */
-        .navbar__links {
-          display: flex;
-          align-items: center;
-          gap: 4px;
-          list-style: none;
-        }
-
-        .navbar__links li a {
-          position: relative;
-          text-decoration: none;
-          color: var(--muted);
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          padding: 6px 14px;
-          border-radius: var(--radius);
-          transition: color var(--transition), background var(--transition);
-          display: block;
-        }
-
-        .navbar__links li a::after {
-          content: '';
-          position: absolute;
-          bottom: 2px; left: 14px; right: 14px;
-          height: 1px;
-          background: var(--accent);
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .navbar__links li a:hover,
-        .navbar__links li a.active {
-          color: var(--text);
-          background: var(--accent-dim);
-        }
-
-        .navbar__links li a:hover::after,
-        .navbar__links li a.active::after {
-          transform: scaleX(1);
-        }
-
-        /* CTA Button */
-        .navbar__cta {
-          display: flex;
-          align-items: center;
-          gap: 16px;
-        }
-
-        .btn-cta {
-          background: var(--accent);
-          color: #0a0a0a;
-          border: none;
-          padding: 9px 20px;
-          font-family: var(--font-body);
-          font-size: 13px;
-          font-weight: 500;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          border-radius: var(--radius);
-          cursor: pointer;
-          transition: opacity var(--transition), transform var(--transition);
-          white-space: nowrap;
-        }
-
-        .btn-cta:hover {
-          opacity: 0.88;
-          transform: translateY(-1px);
-        }
-
-        .btn-cta:active {
-          transform: translateY(0);
-        }
-
-        /* Hamburger */
-        .navbar__hamburger {
-          display: none;
-          flex-direction: column;
-          justify-content: center;
-          gap: 5px;
-          width: 36px;
-          height: 36px;
-          background: none;
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          cursor: pointer;
-          padding: 0 8px;
-          transition: border-color var(--transition);
-        }
-
-        .navbar__hamburger:hover { border-color: var(--accent); }
-
-        .navbar__hamburger span {
-          display: block;
-          height: 1.5px;
-          background: var(--text);
-          border-radius: 2px;
-          transition: transform 0.28s ease, opacity 0.2s ease, width 0.2s ease;
-          transform-origin: center;
-        }
-
-        .navbar__hamburger.open span:nth-child(1) {
-          transform: translateY(6.5px) rotate(45deg);
-        }
-        .navbar__hamburger.open span:nth-child(2) {
-          opacity: 0;
-          transform: scaleX(0);
-        }
-        .navbar__hamburger.open span:nth-child(3) {
-          transform: translateY(-6.5px) rotate(-45deg);
-        }
-
-        /* Mobile drawer */
-        .navbar__drawer {
-          position: fixed;
-          inset: 64px 0 0 0;
-          z-index: 99;
-          background: rgba(10, 10, 10, 0.97);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          padding: 32px 32px 48px;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          transform: translateY(-100%);
-          opacity: 0;
-          pointer-events: none;
-          transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s ease;
-          border-top: 1px solid var(--border);
-        }
-
-        .navbar__drawer.open {
-          transform: translateY(0);
-          opacity: 1;
-          pointer-events: all;
-        }
-
-        .navbar__drawer a {
-          font-family: var(--font-display);
-          font-size: 48px;
-          letter-spacing: 0.04em;
-          color: var(--muted);
-          text-decoration: none;
-          line-height: 1.1;
-          transition: color var(--transition);
-          display: block;
-          padding: 4px 0;
-        }
-
-        .navbar__drawer a:hover { color: var(--accent); }
-
-        .navbar__drawer .drawer-cta {
-          margin-top: 24px;
-        }
-
-        .navbar__drawer .drawer-cta .btn-cta {
-          width: 100%;
-          padding: 14px;
-          font-size: 14px;
-          text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-          .navbar__links,
-          .navbar__cta .btn-cta {
-            display: none;
-          }
-          .navbar__hamburger {
-            display: flex;
-          }
-          .navbar {
-            padding: 0 20px;
-          }
-        }
-      `}</style>
-
-            <div className="navbar-demo">
-                {/* ── Navbar ── */}
-                <nav className={`navbar${scrolled ? " navbar--scrolled" : ""}`}>
-                    <a className="navbar__logo" href="#">
-                        <span className="navbar__logo-dot" />
-                        VOLT
-                    </a>
-
-                    <ul className="navbar__links">
-                        {NAV_LINKS.map((link) => (
-                            <li key={link.label}>
-                                <a
-                                    href={link.href}
-                                    className={activeLink === link.label ? "active" : ""}
-                                    onClick={() => setActiveLink(link.label)}
-                                >
-                                    {link.label}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-
-                    <div className="navbar__cta">
-                        <button className="btn-cta">Get Started →</button>
-                        <button
-                            className={`navbar__hamburger${menuOpen ? " open" : ""}`}
-                            onClick={() => setMenuOpen((v) => !v)}
-                            aria-label="Toggle menu"
-                        >
-                            <span />
-                            <span />
-                            <span />
-                        </button>
-                    </div>
-                </nav>
-
-                {/* ── Mobile Drawer ── */}
-                <div className={`navbar__drawer${menuOpen ? " open" : ""}`}>
-                    {NAV_LINKS.map((link) => (
-                        <a
-                            key={link.label}
-                            href={link.href}
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            {link.label}
-                        </a>
-                    ))}
-                    <div className="drawer-cta">
-                        <button className="btn-cta">Get Started →</button>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+      {/* Mobile Drawer */}
+      <div
+        className={`fixed top-16 left-0 right-0 z-40 bg-black/95 backdrop-blur-2xl px-8 py-8 flex flex-col gap-2 border-t border-red-500/10 transition-all duration-300 ${menuOpen
+          ? "translate-y-0 opacity-100 pointer-events-auto"
+          : "-translate-y-full opacity-0 pointer-events-none"
+          }`}
+      >
+        {NAV_LINKS.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            onClick={() => setMenuOpen(false)}
+            className="text-4xl font-bold tracking-wide text-stone-400 hover:text-lime-400 transition-colors duration-300 py-1"
+          >
+            {link.label}
+          </a>
+        ))}
+        <button className="w-full bg-lime-400 text-black px-5 py-3 mt-6 text-sm font-semibold tracking-wider uppercase rounded transition-all duration-300 hover:opacity-90">
+          Get Started →
+        </button>
+      </div>
+    </nav>
+  );
 }
