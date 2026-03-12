@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
-  { label: "Work", href: "#work" },
+  { label: "Projects", href: "#projects" },
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
+  { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -36,7 +36,7 @@ export default function Navbar() {
       {/* Logo */}
       <a href="#" className="flex items-center gap-2 select-none">
         <div className="w-1.5 h-1.5 rounded-full bg-lime-400 animate-pulse" />
-        <span className="text-2xl font-bold tracking-widest text-stone-100">VOLT</span>
+        <span className="text-2xl font-bold tracking-widest text-stone-100">Dhananjay</span>
       </a>
 
       {/* Desktop Links */}
@@ -65,8 +65,8 @@ export default function Navbar() {
 
       {/* CTA Button and Hamburger */}
       <div className="flex items-center gap-4">
-        <button className="hidden md:block bg-lime-400 text-black px-5 py-2 text-xs font-semibold tracking-wider uppercase rounded transition-all duration-300 hover:opacity-90 active:translate-y-0.5">
-          Get Started →
+        <button className="hidden md:block bg-lime-400 text-black px-5 py-2 text-xs font-semibold tracking-wider rounded transition-all duration-300 hover:opacity-90 active:translate-y-0.5">
+          Get in touch →
         </button>
 
         {/* Hamburger */}
@@ -102,8 +102,8 @@ export default function Navbar() {
             {link.label}
           </a>
         ))}
-        <button className="w-full bg-lime-400 text-black px-5 py-3 mt-6 text-sm font-semibold tracking-wider uppercase rounded transition-all duration-300 hover:opacity-90">
-          Get Started →
+        <button className="w-full bg-lime-400 text-black px-5 py-3 mt-6 text-sm font-semibold tracking-wider rounded transition-all duration-300 hover:opacity-90">
+          Get in touch →
         </button>
       </div>
     </nav>

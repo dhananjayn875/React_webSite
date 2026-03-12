@@ -108,7 +108,7 @@ export default function Footer() {
                     </div>
 
                     {/* CTA Button */}
-                    <div className="text-right">
+                    <div className="text-left md:text-right">
                         <button className="bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-6 rounded font-mono text-sm tracking-widest uppercase transition-all duration-300">
                             $ hire me
                         </button>

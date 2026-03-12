@@ -6,17 +6,25 @@ export default function Projects() {
     // Sample project data - replace with your actual projects
     const projects = [
         {
+            id: 0,
+            title: "Portfolio",
+            description: "Portfolio website built with React and Tailwind CSS, showcasing projects and skills",
+            tech: ["React", "JavaScript", "Tailwind CSS", "Vite"],
+            link: "#",
+            status: "Completed",
+        },
+        {
             id: 1,
-            title: "Stock Market Portfolio",
+            title: "Stock Market Dashboard",
             description: "Full-stack e-commerce solution with real-time inventory management",
             tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
-            link: "#",
+            link: "instagram.com",
             status: "Completed",
         },
     ];
 
     return (
-        <section id="work" className="bg-black text-green-400 py-20 px-6 sm:px-12">
+        <section id="projects" className="bg-black text-green-400 py-20 px-6 sm:px-12">
             {/* Section Header */}
             <div className="max-w-6xl mx-auto mb-16">
                 <h2 className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400">
