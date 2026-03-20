@@ -126,7 +126,7 @@ export default function Footer() {
                 {/* Copyright */}
                 <div className="text-center border-t border-green-500/30 pt-8 text-green-500 font-mono text-xs">
                     <p>
-                        $ echo "© 2024 John Doe. All rights reserved. | Built with React + Tailwind CSS"
+                        $ echo "© 2025 Dhananjay N. Open Source. | Built with React + Tailwind CSS"
                     </p>
                 </div>
             </div>
