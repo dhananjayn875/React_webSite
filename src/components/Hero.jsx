@@ -1,6 +1,8 @@
 // About/Hero Section - Personal introduction
 // This component provides an overview of the developer's background and experience
 // Includes a brief bio and key highlights that define the developer's unique value
+import { useScrollVisible } from "../hooks/useScrollVisible";
+import { useTypewriter } from "../hooks/useTypewriter";
 
 export default function Hero() {
     // Key statistics/highlights
@@ -11,12 +13,21 @@ export default function Hero() {
         { label: "Tech Stack", value: "10+" },
     ];
 
+    const { ref, isVisible } = useScrollVisible(0.3);
+    const { displayText, done } = useTypewriter("$ whoami", 70, isVisible);
+
     return (
         <section id="about" className="bg-black text-green-400 py-20 px-6 sm:px-12">
             <div className="max-w-6xl mx-auto">
                 {/* Section Header */}
-                <h2 className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400">
-                    $ whoami
+                <h2
+                    ref={ref}
+                    className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400 min-h-[1.2em]"
+                >
+                    {displayText}
+                    {!done && isVisible && (
+                        <span className="inline-block w-0.5 h-[1em] bg-green-400 align-middle ml-0.5 animate-pulse" />
+                    )}
                 </h2>
                 <div className="h-1 w-20 bg-green-500 mb-8" />
 
