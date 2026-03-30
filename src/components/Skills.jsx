@@ -1,6 +1,8 @@
 // Skills Section - Display technical proficiencies
 // This component showcases the developer's technical skills organized by category
 // Each skill card includes the skill name and a visual proficiency indicator
+import { useScrollVisible } from "../hooks/useScrollVisible";
+import { useTypewriter } from "../hooks/useTypewriter";
 
 export default function Skills() {
     // Skill categories with proficiency levels (0-100)
@@ -34,12 +36,21 @@ export default function Skills() {
         },
     ];
 
+    const { ref, isVisible } = useScrollVisible(0.3);
+    const { displayText, done } = useTypewriter("$ skills --list", 60, isVisible);
+
     return (
         <section id="skills" className="bg-black text-green-400 py-20 px-6 sm:px-12">
             {/* Section Header */}
             <div className="max-w-6xl mx-auto mb-16">
-                <h2 className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400">
-                    $ skills --list
+                <h2
+                    ref={ref}
+                    className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400 min-h-[1.2em]"
+                >
+                    {displayText}
+                    {!done && isVisible && (
+                        <span className="inline-block w-0.5 h-[1em] bg-green-400 align-middle ml-0.5 animate-pulse" />
+                    )}
                 </h2>
                 <div className="h-1 w-20 bg-green-500" />
                 <p className="text-green-300 mt-4 font-mono">

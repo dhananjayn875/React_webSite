@@ -1,6 +1,8 @@
 // Projects Section - Showcase of completed work
 // This component displays featured projects with descriptions, tech stack, and links
 // Each project card includes an image placeholder and relevant project details
+import { useScrollVisible } from "../hooks/useScrollVisible";
+import { useTypewriter } from "../hooks/useTypewriter";
 
 export default function Projects() {
     // Sample project data - replace with your actual projects
@@ -23,12 +25,21 @@ export default function Projects() {
         },
     ];
 
+    const { ref, isVisible } = useScrollVisible(0.3);
+    const { displayText, done } = useTypewriter("$ projects --show", 60, isVisible);
+
     return (
         <section id="projects" className="bg-black text-green-400 py-20 px-6 sm:px-12">
             {/* Section Header */}
             <div className="max-w-6xl mx-auto mb-16">
-                <h2 className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400">
-                    $ projects --show
+                <h2
+                    ref={ref}
+                    className="text-4xl sm:text-5xl font-bold font-mono mb-4 text-green-400 min-h-[1.2em]"
+                >
+                    {displayText}
+                    {!done && isVisible && (
+                        <span className="inline-block w-0.5 h-[1em] bg-green-400 align-middle ml-0.5 animate-pulse" />
+                    )}
                 </h2>
                 <div className="h-1 w-20 bg-green-500" />
                 <p className="text-green-300 mt-4 font-mono">
