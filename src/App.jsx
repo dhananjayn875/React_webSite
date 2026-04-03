@@ -4,6 +4,7 @@ import Footer from "./components/Footer"
 import Projects from "./components/Projects"
 import Skills from "./components/Skills"
 import Header from "./components/Header"
+import GitHubCalendarSection from "./components/GitHubCalendarSection"
 // eslint-disable-next-line no-unused-vars
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
     <Header />
     <Hero />
     <Projects />
+    <GitHubCalendarSection />
     <Skills />
     <Footer />
   </div>
